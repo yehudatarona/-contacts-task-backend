@@ -7,14 +7,19 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const mongo = require("./mongodb/connect");
+const cors = require('cors');
 
 var app = express();
-app.all('*', function (req, res, next) {
-  if (!req.get('Origin')) return next();
-  res.set('Access-Control-Allow-Origin', '*');
-  res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,x-auth-token');
-  next();
-});
+app.use(cors({
+  origin: '*'
+}));
+
+// app.all('*', function (req, res, next) {
+//   if (!req.get('Origin')) return next();
+//   res.set('Access-Control-Allow-Origin', '*');
+//   res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,x-auth-token');
+//   next();
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
